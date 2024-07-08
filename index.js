@@ -13,10 +13,18 @@ class Calculator {
     }
 
     setOperator(operator) {
-        
-        this.previousInput = this.currenInput;
+        function setPrevious(){
+            if(result == undefined) {
+                this.previousInput = this.currenInput;
+            }
+            else {
+                this.previousInput = result
+            }
+        }
+        setPrevious()
         this.currenInput = '';
         this.operator = operator;
+        this.previousInput = this.currenInput;
     }
 
     calculate() {
@@ -46,8 +54,11 @@ class Calculator {
                 default:
                     throw new Error ('Syntax ERROR')
             }
+            this.currenInput = ''
             console.log(result)
-            // Poderia ser implementado caso deseja-se resultados independentes
+            return this.previousInput = result
+    
+        
 
         } catch (error) {
             console.log('Erro:',error.message)
@@ -66,6 +77,6 @@ calculator.setOperator('+')
 calculator.appendNumber('1')
 calculator.calculate();
 
-calculator.appendNumber('5')
+calculator.appendNumber('1')
 calculator.setOperator('-')
 calculator.calculate();
