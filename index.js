@@ -1,5 +1,5 @@
 class Calculator {
-    constructor(currenInput,operator,previousInput ) {
+    constructor(currenInput,operator,previousInput) {
         this.currenInput = '';
         this.operator = null;
         this.previousInput = '';
@@ -10,22 +10,16 @@ class Calculator {
     appendNumber(number) {
         
         this.currenInput = parseFloat(this.currenInput + number);
-        //console.log(typeof this.currenInput)
-        //console.log(this.currenInput)
     }
 
     setOperator(operator) {
-
+        
         this.previousInput = this.currenInput;
-
         this.currenInput = '';
-
         this.operator = operator;
-
     }
 
     calculate() {
-
         try {
             let result = 0;
             switch (this.operator) {
@@ -42,13 +36,21 @@ class Calculator {
                     break
                 
                 case '/':
-                    result = this.previousInput/this.currenInput;
+                    if(this.currenInput !== 0 ){
+                        result = this.previousInput/this.currenInput;
+                    }
+                    else {
+                        throw new Error('Math ERROR')
+                    }
                     break
+                default:
+                    throw new Error ('Syntax ERROR')
             }
-
             console.log(result)
+            // Poderia ser implementado caso deseja-se resultados independentes
+
         } catch (error) {
-            console.log('Systax ERROR')
+            console.log('Erro:',error.message)
         }
         
     }
@@ -58,38 +60,12 @@ class Calculator {
 
 const calculator = new Calculator
 
-calculator.appendNumber('5')
-calculator.appendNumber('0')
-calculator.setOperator('=')
-calculator.appendNumber('1')
-calculator.appendNumber('0')
-calculator.calculate();
-
 
 calculator.appendNumber('5')
-calculator.appendNumber('0')
 calculator.setOperator('+')
 calculator.appendNumber('1')
-calculator.appendNumber('0')
 calculator.calculate();
 
 calculator.appendNumber('5')
-calculator.appendNumber('0')
 calculator.setOperator('-')
-calculator.appendNumber('1')
-calculator.appendNumber('0')
-calculator.calculate();
-
-calculator.appendNumber('5')
-calculator.appendNumber('0')
-calculator.setOperator('*')
-calculator.appendNumber('1')
-calculator.appendNumber('0')
-calculator.calculate();
-
-calculator.appendNumber('5')
-calculator.appendNumber('0')
-calculator.setOperator('*')
-calculator.appendNumber('1')
-calculator.appendNumber('0')
 calculator.calculate();
