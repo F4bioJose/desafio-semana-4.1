@@ -1,32 +1,31 @@
-class Calculator {
-    constructor(currenInput,operator,previousInput) {
+class Calculator { // É necessário que os inputs não possuam valores prévios 
+    constructor() {
         this.currenInput = '';
         this.operator = null;
         this.previousInput = '';
 
     }
-// É necessário que os inputs não possuam valores prévios 
 
+// -=-=-=- Adicionar dígito -=-=-=-= 
     appendNumber(number) {
         
         this.currenInput = parseFloat(this.currenInput + number);
     }
-
+// =-=-=-=- adicionar operador =-=-=-=- 
     setOperator(operator) {
-        function setPrevious(){
-            if(result == undefined) {
+        const setPrevious =  () => {
+            if(typeof this.result === 'undefined') {
                 this.previousInput = this.currenInput;
             }
             else {
-                this.previousInput = result
+                this.previousInput = this.result
             }
         }
-        setPrevious()
+        setPrevious.call(this) // garante que o this apotará para a instância da classe
         this.currenInput = '';
         this.operator = operator;
-        this.previousInput = this.currenInput;
     }
-
+ // -=-=-=- Efetuação das operações =-=-=-=- 
     calculate() {
         try {
             let result = 0;
@@ -54,12 +53,11 @@ class Calculator {
                 default:
                     throw new Error ('Syntax ERROR')
             }
-            this.currenInput = ''
+            this.result = result
             console.log(result)
+            this.currenInput = ''
             return this.previousInput = result
     
-        
-
         } catch (error) {
             console.log('Erro:',error.message)
         }
@@ -72,11 +70,30 @@ class Calculator {
 const calculator = new Calculator
 
 
-calculator.appendNumber('5')
+calculator.appendNumber('90')
 calculator.setOperator('+')
-calculator.appendNumber('1')
+calculator.appendNumber('20')
 calculator.calculate();
 
-calculator.appendNumber('1')
+
 calculator.setOperator('-')
+calculator.appendNumber('150')
+calculator.calculate();
+
+//=-=-=- Math ERROR =-=-=-
+calculator.setOperator('/')
+calculator.appendNumber('0')
+calculator.calculate();
+
+calculator.setOperator('*')
+calculator.appendNumber('-3')
+calculator.calculate();
+
+calculator.setOperator('/')
+calculator.appendNumber('20')
+calculator.calculate();
+
+// =-=-=- Systax ERROR =-=-=- 
+calculator.setOperator('%')
+calculator.appendNumber('20')
 calculator.calculate();
